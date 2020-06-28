@@ -1,0 +1,43 @@
+<div class="">
+    <%= text_field(:search, :search, size: 20, class: "form-control", placeholder: "Search...", id: "search")%>
+</div>
+
+<div class="row">
+    <div class="col-2 ">
+    <div class="list-group sticky-top" id="list-tab" role="tablist">
+        <%= link_to  "All Categories", "#", class: "list-group-item list-group-item-action active"%>
+        <% @categories.each do |category| %>
+            <%= link_to  "#{category.name}", sort_path(id: category.id), class: "list-group-item list-group-item-action",onClick: "$(change_active(this));", remote: true %>
+        <% end %>
+    </div>
+
+    </div>
+
+    <div class="col">
+        <div class="row row-cols-1 row-cols-md-3 product-index">
+            <% @products.each do |product| %>
+                <%= render  "product", product: product %>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+<script>
+    function change_active(th_is) {
+        $(".active").removeClass("active");
+        $(th_is).addClass("active");
+    }
+
+    $("#search").keyup(function () {
+        $.ajax({
+        url: '/products/search',
+        data: {
+            search: $(this).val(),
+            from: "index"
+        }
+        });
+  });
+    
+</script>
+
+

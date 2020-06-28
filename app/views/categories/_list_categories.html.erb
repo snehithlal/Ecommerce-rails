@@ -1,0 +1,25 @@
+
+<% if categories.present? %>
+    <table class="table table-hover table-lite">
+    <thead>
+        <tr>
+        <th scope="col">Si No.</th>
+        <th scope="col">Name</th>
+        <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+    <% categories.each_with_index do |category, i| %>
+        <tr>
+        <th scope="row"><%= i + 1 %></th>
+        <td><%= category.name%></td>
+        <td><%= link_to "Delete", category, method: :delete, data: { confirm: 'Are you sure?' }, remote: true%></td>
+        </tr>
+        <% end %>
+    </tbody>
+    </table>
+<% else %>
+    <div class="alert alert-dark" role="alert">
+        No categories...
+    </div>
+ <% end %>

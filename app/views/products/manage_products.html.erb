@@ -1,0 +1,21 @@
+<%= link_to "New Product", new_product_path, class: "btn btn-primary" %> 
+<div class="">
+    <%= text_field(:search, :search, size: 20, class: "form-control", placeholder: "Search...", id: "search")%>
+</div>
+
+<div class="product-list">
+    <%= render  "product_list", products: @products %>
+</div>
+<script>
+  //search on key press
+  $("#search").keyup(function () {
+    //   console.log($(this).val());
+    // $(".todolist").empty();
+    $.ajax({
+      url: '/products/search',
+      data: {
+        search: $(this).val()
+      }
+    });
+  });
+</script>

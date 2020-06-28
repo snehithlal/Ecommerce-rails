@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>MyshopRails</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+        <%= link_to "My Shop", root_path, class: "navbar-brand" %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <%= link_to "Home", root_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <%=current_user.present? ? current_user.username : "Guest" %>
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="dropdown01">
+
+                        <% if user_signed_in? %>
+                          <%= link_to "Edit profile", edit_user_registration_path, class: "dropdown-item" %>
+                          <% if current_user.is_admin? %>
+                            <%= link_to "Manage Category", categories_path, class: "dropdown-item" %>
+                            <%= link_to "Manage Products", manage_products_path, class: "dropdown-item" %>
+                          <%end%>
+                        <% else %>
+                          <%= link_to "Sign up", new_user_registration_path , class: "dropdown-item"%>
+                          <%= link_to "Login", new_user_session_path, class: "dropdown-item" %>
+                        <% end %>
+                        <% if user_signed_in? %>
+                          <%= link_to "Logout", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+                        <% end %>
+
+                    </div>
+                </li>
+            </ul>
+
+        </div>
+    </nav>
+
+    <main role="main" class="container">
+
+    </main>
+    <div id="main-container" class="container">
+        <% if notice %>
+            <p class="alert alert-success"><%= notice %></p>
+        <% end %>
+        <% if alert %>
+            <p class="alert alert-danger"><%= alert %></p>
+        <% end %>
+        <%= yield %>
+    </div>
+</body>
+
+</html>
