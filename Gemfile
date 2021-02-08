@@ -38,7 +38,7 @@ gem 'bootstrap',  '~>4.3.1'
 
 
 # gem for file_upload
-gem 'carrierwave', '~> 0.11.2'
+gem 'carrierwave', '~> 1.3.2'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
